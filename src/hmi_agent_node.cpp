@@ -52,6 +52,9 @@ void joystick_status_callback(const rio_control_node::Joystick_Status &joystick_
 
     output_signals.gauge_value = 1500 + (1500 * operator_joystick->getRawAxis(gauge_axis_id)); 
 
+    output_signals.elevator_vertical = operator_joystick->getRawAxis(elevator_vertical_axis_id);
+    output_signals.claw_open = operator_joystick->getButton(claw_open_button_id);
+
     static ros::Publisher signal_publisher = node->advertise<hmi_agent_node::HMI_Signals>("/HMISignals", 10);
 
     if (robot_state != RobotState::AUTONOMOUS)
@@ -76,6 +79,8 @@ int main(int argc, char **argv)
 
     // Operator
     required_params_found &= n.getParam(CKSP(gauge_axis_id), gauge_axis_id);
+    required_params_found &= n.getParam(CKSP(elevator_vertical_axis_id), elevator_vertical_axis_id);
+    required_params_found &= n.getParam(CKSP(claw_open_button_id), claw_open_button_id);
 
 	if (!required_params_found)
 	{

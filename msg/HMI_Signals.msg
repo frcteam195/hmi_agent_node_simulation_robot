@@ -6,3 +6,5 @@ float64 drivetrain_swerve_percent_angular_rot
 bool drivetrain_quickturn
 bool drivetrain_brake
 int32 gauge_value
+float64 elevator_vertical
+bool claw_open
